@@ -8,6 +8,16 @@ public class Usuario {
     private Boolean primeiroAcesso;
     LocalDate dataInativacao;
     private String status;
+    private String inativarUsuario;
+    private String logDados;
+
+
+    public Usuario() {
+        this.senha = "etec#123";
+        this.primeiroAcesso = true;
+        this.status = "ATIVO";
+
+    }
 
     public Number getCodigo() {
         return codigo;
@@ -30,9 +40,11 @@ public class Usuario {
     }
 
     public void setSenha(String senha) {
-        this.senha = "etec#123";
-        this.primeiroAcesso = true;
-        this.status = "ATIVO";
+            this.primeiroAcesso = false;
+            this.status = "ATIVO";
+            this.tentativasAcesso = 0 ;
+
+
     }
 
     public Number getTentativasAcesso() {
@@ -59,7 +71,23 @@ public class Usuario {
         this.status = status;
     }
 
+    void inativarUsuario(){
+        LocalDate.now();
+        if (primeiroAcesso == true)
+        {
+            this.primeiroAcesso = false;
+            this.status = "INATIVO";
+        }
+    }
 
+    void logDados(){
+        System.out.println("Código: " + codigo);
+        System.out.println("Usuário: " + nome);
+        System.out.println("Senha: " + senha);
+        System.out.println("Trocar senha: " + true);
+        System.out.println("Status: ATIVO");
+
+    }
 
 }
 
