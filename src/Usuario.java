@@ -7,7 +7,7 @@ public class Usuario {
     private int tentativasAcesso;
     private Boolean primeiroAcesso;
     LocalDate dataInativacao;
-    private String status;
+    private StatusUsuarioEnum status;
     private String inativarUsuario;
     private String logDados;
 
@@ -15,7 +15,7 @@ public class Usuario {
     public Usuario() {
         this.senha = "etec#123";
         this.primeiroAcesso = true;
-        this.status = "ATIVO";
+        this.status = StatusUsuarioEnum.INATIVO;
 
     }
 
@@ -41,7 +41,7 @@ public class Usuario {
 
     public void setSenha(String senha) {
             this.primeiroAcesso = false;
-            this.status = "ATIVO";
+            this.status = StatusUsuarioEnum.ATIVO;
             this.tentativasAcesso = 0 ;
 
 
@@ -63,20 +63,20 @@ public class Usuario {
         this.primeiroAcesso = primeiroAcesso;
     }
 
-    public String getStatus() {
+    public StatusUsuarioEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusUsuarioEnum status) {
         this.status = status;
     }
 
     void inativarUsuario(){
-        LocalDate.now();
+        dataInativacao = LocalDate.now();
         if (primeiroAcesso == true)
         {
             this.primeiroAcesso = false;
-            this.status = "INATIVO";
+            this.status = StatusUsuarioEnum.INATIVO;
         }
     }
 
@@ -85,9 +85,35 @@ public class Usuario {
         System.out.println("Usuário: " + nome);
         System.out.println("Senha: " + senha);
         System.out.println("Trocar senha: " + true);
-        System.out.println("Status: ATIVO");
+        System.out.println("Status: " + status);
 
     }
+     void autenticar(String senha) {
+        if (this.status == StatusUsuarioEnum.INATIVO && this.status == StatusUsuarioEnum.BLOQUEADO)
+        {
+            System.out.println("Acesso negado");
+        }
+        else if (this.tentativasAcesso >= 3){
+            this.status = StatusUsuarioEnum.BLOQUEADO;
+            System.out.println("Acesso negado");
 
+        }
+        else if (this.senha == senha){
+            this.tentativasAcesso = 0;
+            System.out.println("Acesso Liberado");
+            if (senha != senha)
+            {
+                this.tentativasAcesso = 1;
+                System.out.println("Usuário/senha inválidos");
+
+
+            }
+
+        }
+
+
+     }
 }
+
+
 

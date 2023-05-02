@@ -5,6 +5,7 @@ public class UsuarioTeste {
         novoUsuario.setCodigo(1);
 
         novoUsuario.logDados();
+        novoUsuario.autenticar(novoUsuario.getSenha());
 
 
     }
